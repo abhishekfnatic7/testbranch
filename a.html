@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var blob = new Blob(["blob:https://www.geeksforgeeks.org/bddedfe2-40d8-47a5-a101-550c3b2c4da2"], { type: 'text/plain' });
+        var blobUrl = URL.createObjectURL(blob);
+
+        var xhr = new XMLHttpRequest;
+        xhr.responseType = 'blob';
+
+        xhr.onload = function () {
+            var recoveredBlob = xhr.response;
+
+            var reader = new FileReader;
+
+            reader.onload = function () {
+                var blobAsDataUrl = reader.result;
+                window.location = blobAsDataUrl;
+            };
+
+            reader.readAsDataURL(recoveredBlob);
+        };
+
+        xhr.open('GET', blobUrl);
+        xhr.send();
+        console.log(blobUrl)
+    </script>
+</body>
+
+</html>
